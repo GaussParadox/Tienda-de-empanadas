@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="Dios.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Registro de Producto</h2>
+
+        <!-- Botón Agregar Producto -->
+        <a class="btn btn-success mb-4" href="save.html">Agregar Producto</a>
+
+
+        <!-- Tabla de Productos -->
+        <h2 class="mt-4">Lista de Productos</h2>
+        <table class="table table-striped" id="table">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+
+    </div>   
+    <script>
+        const templateRowTable = `
+            <tr>
+                <td>[id]</td>
+                <td>[name]</td>
+                <td>[description]</td>
+                <td>[price]</td>
+                <td>[category]</td>
+                <td>[stock]</td>
+                <td>
+                    <div style="display: flex;">
+                        <button class="btn btn-warning btn-sm" style="margin-right: 10px;" data-id="[id]" data-name="[name]" onclick="onClickUpdate(this)">Actualizar</button>
+                        <button class="btn btn-danger btn-sm" data-id="[id]" data-name="[name]" onclick="onClickDelete(this)">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+
+
+                const API_URL = "https://localhost:7089/products";
+
+        document.addEventListener("DOMContentLoaded", async (event)=>{   
+            await loadTable();
+            });
+        async function loadTable() {
+            const data = await getData(API_URL);
+                
+                let content = ``;
+
+                data.forEach(element => {
+                    let actualRow = templateRowTable
+
+                    actualRow=actualRow
+                    .replaceAll("[id]", element.id)
+                    .replaceAll("[name]", element.nombre)
+                    .replaceAll("[description]", element.descripcion)
+                    .replaceAll("[price]", element.precio)
+                    .replaceAll("[category]", element.categoria)
+                    .replaceAll("[stock]", element.cantidadEnStock);
+                content +=actualRow;
+                });
+    
+                document.querySelector("#table tbody").innerHTML = content;
+        }
+
+        async function onClickDelete(event){
+            if (confirm(`¿Esta seguro de eliminar el producto ${event["dataset"].name}?`)){
+
+                const response = await deleteProduct(event["dataset"].id);
+
+                alert("¡Dato eliminado!");
+                console.log(response);
+
+                await loadTable();
+            }
+
+        }
+        function onClickUpdate(button) {
+            const id = button.getAttribute('data-id');
+            const name = button.getAttribute('data-name');
+
+            window.location.href = `update.html?id=${id}&name=${name}`;
+        }
+
+        async function getData(url = '') {
+
+        const response = await fetch(url,);
+            return response.json();
+        }
+        
+        async function deleteProduct(id) {
+            const response = await fetch(`${API_URL}/${id}`,{
+            method: 'DELETE'
+        });
+        
+            return await response.json();
+        }
+    </script>
+</body>
+
+</html>

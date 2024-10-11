@@ -1,0 +1,7 @@
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.csproj.AssemblyReference.cache
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.AssemblyInfoInputs.cache
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.AssemblyInfo.cs
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.csproj.CoreCompileInputs.cache
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ALEJANDRO\source\repos\20240813v\20240813v\obj\Release\net8.0\20240813v.MvcApplicationPartsAssemblyInfo.cache
